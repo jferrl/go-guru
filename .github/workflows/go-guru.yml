@@ -1,0 +1,24 @@
+name: Go Guru
+
+on:
+  pull_request:
+    types: [opened, synchronize]
+
+jobs:
+  review:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Build and run the Go program
+      uses: docker/build-push-action@v5
+      with:
+        context: .
+        file: ./Dockerfile
+        push: false
+        tags: go-guru:latest
+
+    - name: Run PR reviewer
+      run: docker run -e GITHUB_TOKEN=${{ secrets.GITHUB_TOKEN }} -e GPT_API_KEY=${{ secrets.GPT_API_KEY }} -e GITHUB_REPOSITORY=${{ github.repository }} -e GITHUB_REF=${{ github.ref }} go-guru:latest
