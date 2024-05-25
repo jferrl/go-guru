@@ -31,7 +31,7 @@ func main() {
 
 	fmt.Println("Hello World From GitHub Action")
 
-	client := github.NewClient(
+	_ = github.NewClient(
 		httpcache.NewMemoryCacheTransport().Client(),
 	).WithAuthToken(githubToken)
 
