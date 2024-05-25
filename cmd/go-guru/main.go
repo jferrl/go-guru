@@ -15,7 +15,7 @@ func main() {
 
 	action := githubactions.New()
 
-	actionContext, err := action.Context()
+	_, err := action.Context()
 	if err != nil {
 		action.Fatalf("failed to get action context: %v", err)
 	}
