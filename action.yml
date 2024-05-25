@@ -1,0 +1,8 @@
+name: go-guru
+description: Run go-guru on a Go project
+author: jferrl
+# inputs:
+# outputs:
+runs:
+  using: docker
+  image: Dockerfile
