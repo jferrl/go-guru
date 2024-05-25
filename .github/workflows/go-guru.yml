@@ -6,6 +6,7 @@ jobs:
     name: Build
     runs-on: ubuntu-latest
     steps:
+    - uses: actions/checkout@v4
     - uses: jferrl/go-guru@main
       if: always()
       with:
