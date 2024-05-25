@@ -1,8 +1,16 @@
 name: go-guru
 description: Run go-guru on a Go project
 author: jferrl
-# inputs:
-# outputs:
+inputs:
+  GITHUB_TOKEN:
+    description: 'GitHub token'
+    required: true
+  GITHUB_REPOSITORY_OWNER:
+    description: 'GitHub repository owner'
+    required: true
+  GITHUB_REPOSITORY_NAME:
+    description: 'GitHub repository name'
+    required: true
 runs:
   using: docker
   image: Dockerfile
