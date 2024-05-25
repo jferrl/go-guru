@@ -10,6 +10,6 @@ FROM alpine:latest
 
 COPY --from=builder /app/go-guru /go-guru
 
-RUN chmod +x go-guru
+RUN chmod +x ./go-guru
 
 ENTRYPOINT ["./go-guru"]
