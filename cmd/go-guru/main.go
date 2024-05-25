@@ -2,8 +2,8 @@
 package main
 
 import (
+	"context"
 	"fmt"
-	"os"
 
 	"github.com/google/go-github/v62/github"
 	"github.com/gregjones/httpcache"
@@ -11,29 +11,32 @@ import (
 )
 
 func main() {
+	ctx := context.Background()
+
 	action := githubactions.New()
+
+	actionContext, err := action.Context()
+	if err != nil {
+		action.Fatalf("failed to get action context: %v", err)
+	}
 
 	githubToken := action.GetInput("GITHUB_TOKEN")
 	if githubToken == "" {
-		githubactions.Fatalf("missing input 'GITHUB_TOKEN'")
-	}
-
-	repository := os.Getenv("GITHUB_REPOSITORY")
-	if repository == "" {
-		githubactions.Fatalf("missing input 'GITHUB_REPOSITORY'")
-	}
-
-	ref := os.Getenv("GITHUB_REF")
-	if ref == "" {
-		githubactions.Fatalf("missing input 'GITHUB_REF'")
+		action.Fatalf("missing input 'GITHUB_TOKEN'")
 	}
 
 	action.AddMask(githubToken)
 
 	fmt.Println("Hello World From GitHub Action")
 
-	_ = github.NewClient(
+	githubClient := github.NewClient(
 		httpcache.NewMemoryCacheTransport().Client(),
 	).WithAuthToken(githubToken)
 
+	orgs, _, err := githubClient.Organizations.List(ctx, "jferrl", nil)
+	if err != nil {
+		action.Fatalf("failed to get PR: %v", err)
+	}
+
+	action.Infof("PR: %s", orgs)
 }
