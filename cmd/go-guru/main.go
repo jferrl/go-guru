@@ -3,6 +3,7 @@ package main
 
 import (
 	"fmt"
+	"os"
 
 	"github.com/google/go-github/v62/github"
 	"github.com/gregjones/httpcache"
@@ -17,13 +18,13 @@ func main() {
 		githubactions.Fatalf("missing input 'GITHUB_TOKEN'")
 	}
 
-	repository := action.GetInput("GITHUB_REPOSITORY")
+	repository := os.Getenv("GITHUB_REPOSITORY")
 	if repository == "" {
 		githubactions.Fatalf("missing input 'GITHUB_REPOSITORY'")
 	}
 
-	pullRequest := action.GetInput("GITHUB_REF")
-	if pullRequest == "" {
+	ref := os.Getenv("GITHUB_REF")
+	if ref == "" {
 		githubactions.Fatalf("missing input 'GITHUB_REF'")
 	}
 
