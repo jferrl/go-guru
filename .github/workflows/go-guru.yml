@@ -1,13 +1,10 @@
 name: Test go-guru
 on: [push]
 jobs:
-
   build:
-    name: Build
+    name: Run go-guru
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v4
     - uses: jferrl/go-guru@main
-      if: always()
       with:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

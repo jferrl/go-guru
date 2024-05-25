@@ -2,7 +2,7 @@ FROM golang:1.22-alpine as builder
 
 WORKDIR /app
 
-COPY . .
+COPY . /app
 
 RUN CGO_ENABLED=0 go build -o go-guru ./cmd/go-guru
 
