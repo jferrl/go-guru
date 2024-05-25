@@ -1,9 +1,13 @@
-FROM golang:1.22-alpine
+FROM golang:1.22-alpine as builder
 
 WORKDIR /app
 
 COPY . .
 
-RUN go build -o go-guru ./cmd/go-guru
+RUN CGO_ENABLED=0 go build -o go-guru ./cmd/go-guru
+
+FROM alpine:latest
+
+COPY --from=builder /app/go-guru /go-guru
 
 ENTRYPOINT ["./go-guru"]
