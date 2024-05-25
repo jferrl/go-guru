@@ -17,14 +17,14 @@ func main() {
 		githubactions.Fatalf("missing input 'GITHUB_TOKEN'")
 	}
 
-	repository := action.GetInput("GITHUB_REPOSITORY_NAME")
+	repository := action.GetInput("GITHUB_REPOSITORY")
 	if repository == "" {
-		githubactions.Fatalf("missing input 'GITHUB_REPOSITORY_NAME'")
+		githubactions.Fatalf("missing input 'GITHUB_REPOSITORY'")
 	}
 
-	owner := action.GetInput("GITHUB_REPOSITORY_OWNER")
-	if owner == "" {
-		githubactions.Fatalf("missing input 'GITHUB_REPOSITORY_OWNER'")
+	pullRequest := action.GetInput("GITHUB_REF")
+	if pullRequest == "" {
+		githubactions.Fatalf("missing input 'GITHUB_REF'")
 	}
 
 	action.AddMask(githubToken)
