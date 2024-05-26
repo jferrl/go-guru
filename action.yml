@@ -6,5 +6,16 @@ inputs:
     description: 'GitHub token'
     required: true
 runs:
-  using: docker
-  image: Dockerfile
+  using: composite
+  steps:
+    - uses: actions/setup-go@v5
+      with:
+        go-version: '1.22'
+    - name: Build go-guru
+      run: CGO_ENABLED=0 go build -o go-guru ./cmd/go-guru
+      shell: bash
+    - name: Run go-guru
+      run: ./go-guru
+      shell: bash
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
