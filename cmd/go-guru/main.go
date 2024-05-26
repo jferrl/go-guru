@@ -15,7 +15,7 @@ func main() {
 
 	action := githubactions.New()
 
-	_, err := action.Context()
+	actionCtx, err := action.Context()
 	if err != nil {
 		action.Fatalf("failed to get action context: %v", err)
 	}
@@ -33,10 +33,12 @@ func main() {
 		httpcache.NewMemoryCacheTransport().Client(),
 	).WithAuthToken(githubToken)
 
-	orgs, _, err := githubClient.Organizations.List(ctx, "jferrl", nil)
+	user, _, err := githubClient.Users.Get(ctx, "jferrl")
 	if err != nil {
 		action.Fatalf("failed to get PR: %v", err)
 	}
 
-	action.Infof("PR: %s", orgs)
+	action.Infof("Event data: %v", actionCtx.Event)
+
+	action.Infof("User: %s", user)
 }
