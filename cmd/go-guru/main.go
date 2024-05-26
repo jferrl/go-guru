@@ -35,7 +35,7 @@ func main() {
 		action.Fatalf("failed to get PR: %v", err)
 	}
 
-	pr, _, err := githubClient.PullRequests.ListFiles(ctx, "google", "go-github", 1, nil)
+	pr, _, err := githubClient.PullRequests.ListFiles(ctx, "google", "go-github", 3174, nil)
 	if err != nil {
 		action.Fatalf("failed to get PR: %v", err)
 	}
