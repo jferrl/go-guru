@@ -35,7 +35,7 @@ func main() {
 		action.Fatalf("failed to get PR: %v", err)
 	}
 
-	action.Infof("Event data: %v", actionCtx.Event)
+	action.Infof("Context: %v", actionCtx)
 
 	action.Infof("User: %s", user)
 
