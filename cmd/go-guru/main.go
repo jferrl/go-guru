@@ -10,7 +10,7 @@ import (
 )
 
 func main() {
-	ctx := context.Background()
+	_ = context.Background()
 
 	action := githubactions.New()
 
@@ -26,17 +26,9 @@ func main() {
 
 	action.AddMask(githubToken)
 
-	githubClient := github.NewClient(
+	_ = github.NewClient(
 		httpcache.NewMemoryCacheTransport().Client(),
 	).WithAuthToken(githubToken)
 
-	user, _, err := githubClient.Users.Get(ctx, "jferrl")
-	if err != nil {
-		action.Fatalf("failed to get PR: %v", err)
-	}
-
 	action.Infof("Context: %v", actionCtx)
-
-	action.Infof("User: %s", user)
-
 }
