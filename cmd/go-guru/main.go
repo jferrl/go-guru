@@ -38,4 +38,5 @@ func main() {
 	action.Infof("Event data: %v", actionCtx.Event)
 
 	action.Infof("User: %s", user)
+
 }
