@@ -35,7 +35,12 @@ func main() {
 		action.Fatalf("failed to get PR: %v", err)
 	}
 
-	action.Infof("Event data: %v", actionCtx.Event)
+	pr, _, err := githubClient.PullRequests.ListFiles(ctx, "google", "go-github", 1, nil)
+	if err != nil {
+		action.Fatalf("failed to get PR: %v", err)
+	}
+
+	action.Infof("PR: %v", pr)
 
 	action.Infof("User: %s", user)
 }
