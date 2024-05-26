@@ -3,7 +3,6 @@ package main
 
 import (
 	"context"
-	"fmt"
 
 	"github.com/google/go-github/v62/github"
 	"github.com/gregjones/httpcache"
@@ -22,12 +21,10 @@ func main() {
 
 	githubToken := action.GetInput("GITHUB_TOKEN")
 	if githubToken == "" {
-		action.Fatalf("missing input 'GITHUB_TOKEN'")
+		action.Fatalf("missing input GITHUB_TOKEN")
 	}
 
 	action.AddMask(githubToken)
-
-	fmt.Println("Hello World From GitHub Action")
 
 	githubClient := github.NewClient(
 		httpcache.NewMemoryCacheTransport().Client(),
